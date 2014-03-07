@@ -1,0 +1,18 @@
+{
+    "default_request_protocol": "get",
+    "default_request_format": "json",
+    "default_response_format": "json",
+    "default_global_id": "EBAY-ES",
+    "eBay\\lib\\requests\\Finding": {
+        "urls": {
+            "production": "https://svcs.ebay.com/services/search/FindingService/v1",
+            "sandbox": "https://svcs.sandbox.ebay.com/services/search/FindingService/v1"
+        }
+    },
+    "eBay\\lib\\requests\\Shopping": {
+        "urls": {
+            "production": "http://open.api.ebay.com/shopping",
+            "sandbox": "http://open.api.ebay.com/shopping"
+        }
+    }
+}
