@@ -1,8 +1,10 @@
 <?php
 
-namespace eBay\lib\requests;
+/*
+ * @author Jordi Rejas <github@rejas.eu>
+ */
 
-require 'Request.php';
+namespace eBay\lib\requests;
 
 class Finding extends Request
 {
@@ -176,7 +178,6 @@ class Finding extends Request
     
     public function getSearchKeywordsRecommendation($keywords)
     {
-
         $this->arrayData['keywords'] = $keywords;
         $this->_setRequest('getSearchKeywordsRecommendationRequest');
         $this->_configureRequest();
@@ -298,10 +299,13 @@ class Finding extends Request
                             $arrayData['paginationInput'] = array('pageNumber' => $this->pageNumber, 'entriesPerPage' => $this->entriesPerPage);
                         }
                         
+						$productIdType = null;
+						$productId = null;
+						
                         if(isset($arrayData['productId'])){
-                            $productId = $arrayData['productId'];
+							$productId = $arrayData['productId'];
                             $productIdType = $arrayData['productId.@type'];
-                            unset($arrayData['ProductId'], $arrayData['ProductId.@type']);
+                            unset($arrayData['productId'], $arrayData['productId.@type']);
                         }
                         
                         $xml = $this->_createXml($arrayData, $this->_determiningRequest(), 'http://www.ebay.com/marketplace/search/v1/services');
@@ -451,9 +455,10 @@ class Finding extends Request
     
     private function _generateOutputSelectorParameters()
     {
+		$outputSelectors = '';
+		
         if(count($this->arrayOutputSelectors) > 0){
             
-            $outputSelectors = '';
             $i = 0;
             
             foreach ($this->arrayOutputSelectors as $value) {

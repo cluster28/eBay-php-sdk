@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Jordi Rejas <github@rejas.eu>
+ */
+
 namespace eBay\lib\responses;
 
 abstract class Response

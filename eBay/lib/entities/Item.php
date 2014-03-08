@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Jordi Rejas <github@rejas.eu>
+ */
+
 namespace eBay\lib\entities;
 
 class Item {
@@ -406,7 +410,5 @@ class Item {
         $this->arrayUnitPrice = $arrayUnitPrice;
         return $this;
     }
-
-
 }
 

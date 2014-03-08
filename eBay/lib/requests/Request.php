@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * @author Jordi Rejas <github@rejas.eu>
+ */
+
 namespace eBay\lib\requests;
 
 use \eBay\lib\responses\FindingJsonResponse;
@@ -194,7 +198,6 @@ abstract class Request
 
 	protected function _generateParamenters($array)
 	{
-
 		$parameters = '';
 
 		if (count($array) > 0) {
