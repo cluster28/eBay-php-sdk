@@ -7,6 +7,7 @@
 namespace eBay\lib\responses;
 
 use eBay\lib\exceptions\FindingResponseException;
+use eBay\lib\entities\Item;
 
 class FindingXmlResponse extends Response
 {
@@ -124,7 +125,6 @@ class FindingXmlResponse extends Response
 		$arrayResponse = $this->getArrayResponse();
 		$arrayValues = array_values($arrayResponse);
 		$arrayValues = $arrayValues[0];
-//        echo __FILE__.": ".__LINE__.'<pre>'.print_r($arrayValues, true).'</pre>';  
 
 		if ($arrayValues['ack'] !== 'Success') {
 

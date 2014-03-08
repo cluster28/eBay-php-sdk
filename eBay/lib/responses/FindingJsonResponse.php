@@ -7,6 +7,7 @@
 namespace eBay\lib\responses;
 
 use eBay\lib\exceptions\FindingResponseException;
+use eBay\lib\entities\Item;
 
 class FindingJsonResponse extends Response
 {
@@ -77,25 +78,48 @@ class FindingJsonResponse extends Response
 				$item = new Item();
 				$item	->setItemId($value['itemId'][0])
 						->setTitle($value['title'][0])
-						->setSubTitle($value['subtitle'][0])
 						->setGlobalId($value['globalId'][0])
 						->setGalleryURL($value['galleryURL'][0])
 						->setViewItemURL($value['viewItemURL'][0])
 						->setAutoPay($value['autoPay'][0])
-						->setPostalCode($value['postalCode'][0])
 						->setLocation($value['location'][0])
 						->setCountry($value['country'][0])
-						->setReturnsAccepted($value['returnsAccepted'][0])
 						->setIsMultiVariationListing($value['isMultiVariationListing'][0])
 						->setTopRatedListing($value['topRatedListing'][0])
-						->setCharityId($value['charityId'][0])
-						->setCompatibility($value['compatibility'][0])
-						->setGalleryPlusPictureURL($value['galleryPlusPictureURL'][0])
-						->setPictureURLLarge($value['pictureURLLarge'][0])
-						->setPictureURLSuperSize($value['pictureURLSuperSize'][0])
+						;
 
-				;
-
+				if(isset($value['postalCode'])){
+					$item->setPostalCode($value['postalCode'][0]);
+				}
+				
+				if(isset($value['subtitle'])){
+					$item->setSubTitle($value['subtitle'][0]);
+				}
+				
+				if(isset($value['returnsAccepted'])){
+					$item->setReturnsAccepted($value['returnsAccepted'][0]);
+				}
+				
+				if(isset($value['charityId'])){
+					$item->setCharityId($value['charityId'][0]);
+				}
+				
+				if(isset($value['compatibility'])){
+					$item->setCompatibility($value['compatibility'][0]);
+				}
+				
+				if(isset($value['galleryPlusPictureURL'])){
+					$item->setGalleryPlusPictureURL($value['galleryPlusPictureURL'][0]);
+				}
+				
+				if(isset($value['pictureURLLarge'])){
+					$item->setPictureURLLarge($value['pictureURLLarge'][0]);
+				}
+				
+				if(isset($value['pictureURLSuperSize'])){
+					$item->setPictureURLSuperSize($value['pictureURLSuperSize'][0]);
+				}
+				
 				if (isset($value['paymentMethod'])) {
 
 					$arrayPaymentMethod = array();
@@ -112,9 +136,9 @@ class FindingJsonResponse extends Response
 						'value' => $value['shippingInfo'][0]['shippingServiceCost'][0]['__value__']);
 					$array['shippingType'] = $value['shippingInfo'][0]['shippingType'][0];
 					$array['shipToLocations'] = $value['shippingInfo'][0]['shipToLocations'];
-					$array['expeditedShipping'] = $value['shippingInfo'][0]['expeditedShipping'][0];
-					$array['oneDayShippingAvailable'] = $value['shippingInfo'][0]['oneDayShippingAvailable'][0];
-					$array['handlingTime'] = $value['shippingInfo'][0]['handlingTime'][0];
+					$array['expeditedShipping'] = (isset($array['expeditedShipping'])) ? $value['shippingInfo'][0]['expeditedShipping'][0] : null ;
+					$array['oneDayShippingAvailable'] = (isset($array['oneDayShippingAvailable'])) ? $value['shippingInfo'][0]['oneDayShippingAvailable'][0] : null ;
+					$array['handlingTime'] = (isset($array['handlingTime'])) ? $value['shippingInfo'][0]['handlingTime'][0] : null ;
 					$item->setArrayShippingInfo($array);
 				}
 
