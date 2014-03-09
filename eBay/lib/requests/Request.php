@@ -123,10 +123,10 @@ abstract class Request
 			throw new \Exception("Error during the request", $arrayInfo['http_code']);
 		}
 
-		$responseClass = basename(get_class($this)) . ucfirst($this->responseFormat) . 'Response';
-		if ($responseClass == 'FindingJsonResponse') {
+		$responseClass = get_class($this) . ucfirst($this->responseFormat) . 'Response';
+		if ($responseClass == 'eBay\lib\requests\FindingJsonResponse') {
 			return new FindingJsonResponse($response, $arrayInfo);
-		} elseif ($responseClass == 'FindingXmlResponse') {
+		} elseif ($responseClass == 'eBay\lib\requests\FindingXmlResponse') {
 			return new FindingXmlResponse($response, $arrayInfo);
 		}
 	}

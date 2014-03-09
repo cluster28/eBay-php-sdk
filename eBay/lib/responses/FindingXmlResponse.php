@@ -7,6 +7,7 @@
 namespace eBay\lib\responses;
 
 use eBay\lib\exceptions\FindingResponseException;
+use eBay\lib\entities\Item;
 
 class FindingXmlResponse extends Response
 {
@@ -124,7 +125,6 @@ class FindingXmlResponse extends Response
 		$arrayResponse = $this->getArrayResponse();
 		$arrayValues = array_values($arrayResponse);
 		$arrayValues = $arrayValues[0];
-//        echo __FILE__.": ".__LINE__.'<pre>'.print_r($arrayValues, true).'</pre>';  
 
 		if ($arrayValues['ack'] !== 'Success') {
 
@@ -171,22 +171,45 @@ class FindingXmlResponse extends Response
 			foreach ($arrayItems as $key => $value) {
 
 				$item = new Item();
-				$item->setItemId($value['itemId'])
-						->setTitle($value['title'])
-						->setGlobalId($value['globalId'])
-						->setGalleryURL($value['galleryURL'])
-						->setViewItemURL($value['viewItemURL'])
-						->setAutoPay($value['autoPay'])
-						->setPostalCode($value['postalCode'])
-						->setLocation($value['location'])
+				$item	->setLocation($value['location'])
 						->setCountry($value['country'])
-						->setReturnsAccepted($value['returnsAccepted'])
 						->setIsMultiVariationListing($value['isMultiVariationListing'])
 						->setTopRatedListing($value['topRatedListing'])
-
 				;
 
-				if (isset($value['paymentMethod'])) {
+				if (isset($value['itemId'])) {
+					$item->setItemId($value['itemId']);
+				}
+				
+				if (isset($value['title'])) {
+					$item->setTitle($value['title']);
+				}
+				
+				if (isset($value['postalCode'])) {
+					$item->setPostalCode($value['postalCode']);
+				}
+						
+				if (isset($value['globalId'])) {
+					$item->setGlobalId($value['globalId']);
+				}
+				
+				if (isset($value['galleryURL'])) {
+					$item->setGalleryURL($value['galleryURL']);
+				}
+				
+				if (isset($value['viewItemURL'])) {
+					$item->setViewItemURL($value['viewItemURL']);
+				}
+				
+				if (isset($value['autoPay'])) {
+					$item->setAutoPay($value['autoPay']);
+				}
+				
+				if (isset($value['returnsAccepted'])) {
+					$item->setReturnsAccepted($value['returnsAccepted']);
+				}
+								
+				if (isset($value['paymentMethod']) && is_array($value['paymentMethod'])) {
 
 					$arrayPaymentMethod = array();
 					foreach ($value['paymentMethod'] as $paymentMethod) {
@@ -198,13 +221,16 @@ class FindingXmlResponse extends Response
 				if (isset($value['shippingInfo'])) {
 
 					$array = array();
-					$array['shippingServiceCost'] = array('currencyId' => $value['shippingInfo']['shippingServiceCost_attr']['currencyId'],
-						'value' => $value['shippingInfo']['shippingServiceCost']);
+					
+					if(isset($value['shippingInfo']['shippingServiceCost_attr'])){
+							$array['shippingServiceCost'] = array(	'currencyId' => $value['shippingInfo']['shippingServiceCost_attr']['currencyId'],
+																	'value' => $value['shippingInfo']['shippingServiceCost']);
+					}
 					$array['shippingType'] = $value['shippingInfo']['shippingType'];
 					$array['shipToLocations'] = $value['shippingInfo']['shipToLocations'];
-					$array['expeditedShipping'] = $value['shippingInfo']['expeditedShipping'];
-					$array['oneDayShippingAvailable'] = $value['shippingInfo']['oneDayShippingAvailable'];
-					$array['handlingTime'] = $value['shippingInfo']['handlingTime'];
+					$array['expeditedShipping'] = (isset($array['expeditedShipping'])) ? $value['shippingInfo']['expeditedShipping'] : null ;
+					$array['oneDayShippingAvailable'] = (isset($array['oneDayShippingAvailable'])) ? $value['shippingInfo']['oneDayShippingAvailable'] : null ;
+					$array['handlingTime'] = (isset($array['handlingTime'])) ?  $value['shippingInfo']['handlingTime'] : null ;
 					$item->setArrayShippingInfo($array);
 				}
 
