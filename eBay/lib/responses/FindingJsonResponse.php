@@ -119,10 +119,6 @@ class FindingJsonResponse extends Response
 					$item->setPictureURLSuperSize($value['pictureURLSuperSize'][0]);
 				}
 				
-				if(isset($value['pictureURLSuperSize'])){
-					$item->setGalleryURL($value['galleryURL'][0]);
-				}
-				
 				if (isset($value['paymentMethod'])) {
 
 					$arrayPaymentMethod = array();
