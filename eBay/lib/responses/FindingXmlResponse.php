@@ -171,14 +171,25 @@ class FindingXmlResponse extends Response
 			foreach ($arrayItems as $key => $value) {
 
 				$item = new Item();
-				$item	->setLocation($value['location'])
-						->setCountry($value['country'])
-						->setIsMultiVariationListing($value['isMultiVariationListing'])
-						->setTopRatedListing($value['topRatedListing'])
-				;
-
+				
 				if (isset($value['itemId'])) {
 					$item->setItemId($value['itemId']);
+				}
+				
+				if (isset($value['location'])) {
+					$item->setLocation($value['location']);
+				}
+				
+				if (isset($value['country'])) {
+					$item->setCountry($value['country']);
+				}
+				
+				if (isset($value['isMultiVariationListing'])) {
+					$item->setIsMultiVariationListing($value['isMultiVariationListing']);
+				}
+				
+				if (isset($value['topRatedListing'])) {
+					$item->setTopRatedListing($value['topRatedListing']);
 				}
 				
 				if (isset($value['title'])) {
@@ -261,7 +272,9 @@ class FindingXmlResponse extends Response
 
 					$array = array();
 					$array['conditionId'] = $value['condition']['conditionId'];
-					$array['conditionDisplayName'] = $value['condition']['conditionDisplayName'];
+					if(isset($value['condition']['conditionDisplayName'])){
+						$array['conditionDisplayName'] = $value['condition']['conditionDisplayName'];
+					}
 					$item->setArrayCondition($array);
 				}
 

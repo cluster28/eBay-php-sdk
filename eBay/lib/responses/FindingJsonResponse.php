@@ -79,7 +79,6 @@ class FindingJsonResponse extends Response
 				$item	->setItemId($value['itemId'][0])
 						->setTitle($value['title'][0])
 						->setGlobalId($value['globalId'][0])
-						
 						->setViewItemURL($value['viewItemURL'][0])
 						->setAutoPay($value['autoPay'][0])
 						->setLocation($value['location'][0])
@@ -175,7 +174,9 @@ class FindingJsonResponse extends Response
 
 					$array = array();
 					$array['conditionId'] = $value['condition'][0]['conditionId'][0];
-					$array['conditionDisplayName'] = $value['condition'][0]['conditionDisplayName'][0];
+					if(isset($value['condition'][0]['conditionDisplayName'][0])){
+						$array['conditionDisplayName'] = $value['condition'][0]['conditionDisplayName'][0];
+					}
 					$item->setArrayCondition($array);
 				}
 
@@ -227,5 +228,4 @@ class FindingJsonResponse extends Response
 
 		return $arrayItemObjects;
 	}
-
 }

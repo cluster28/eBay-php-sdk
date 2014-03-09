@@ -2,6 +2,8 @@
 
 /*
  * @author Jordi Rejas <github@rejas.eu>
+ * 
+ * Finding API class for making calls to ay´s Finding Platform
  */
 
 namespace eBay\lib\requests;
